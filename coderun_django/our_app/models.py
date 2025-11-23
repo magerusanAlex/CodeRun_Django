@@ -1,9 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-
 class Instruction(models.Model):
-    # Choices for the direction dropdown
     DIRECTION_CHOICES = [
         ('N', 'North'),
         ('S', 'South'),

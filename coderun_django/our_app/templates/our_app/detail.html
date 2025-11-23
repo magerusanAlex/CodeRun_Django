@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instruction Details</title>
+    <style>
+        .container { font-family: sans-serif; max-width: 600px; margin: 0 auto; text-align: center; }
+
+        /* CSS classes to rotate the arrow based on direction */
+        .arrow-N { transform: rotate(0deg); }
+        .arrow-NE { transform: rotate(45deg); }
+        .arrow-E { transform: rotate(90deg); }
+        .arrow-SE { transform: rotate(135deg); }
+        .arrow-S { transform: rotate(180deg); }
+        .arrow-SW { transform: rotate(225deg); }
+        .arrow-W { transform: rotate(270deg); }
+        .arrow-NW { transform: rotate(315deg); }
+
+        .arrow-icon {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            transition: transform 0.5s ease; /* Smooth animation */
+        }
+
+        .summary-box {
+            background-color: #f0f0f0;
+            border: 2px dashed #333;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Instruction #{{ instruction.id }}</h1>
+
+    <div class="arrow-icon arrow-{{ instruction.direction }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </div>
+
+    <h2>Go {{ instruction.get_direction_display }}</h2>
+    <h3>Distance: {{ instruction.distance }} nautical miles</h3>
+    <p><strong>Description:</strong> {{ instruction.description }}</p>
+    <p><strong>Risk Level:</strong> {{ instruction.risk_level }}/100</p>
+
+    <hr>
+
+    <a href="?summary=true">
+        <button style="padding: 10px 20px; cursor: pointer;">
+            Show Route Summary
+        </button>
+    </a>
+
+    <br><br>
+    <a href="{% url 'compass' %}">Back to Compass</a>
+
+    {% if show_summary %}
+    <div class="summary-box">
+        <h3>Route Analysis (From here to end)</h3>
+        <p><strong>Total Distance Remaining:</strong> {{ total_distance }} miles</p>
+        <p><strong>Average Risk Level:</strong> {{ average_risk|floatformat:1 }}%</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
