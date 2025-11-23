@@ -1,21 +1,231 @@
-<h1>Pirate Compass</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pirate Compass</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Instruction</button>
-</form>
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-<hr>
+        .pirate-header {
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
 
-<h3>Existing Instructions</h3>
-<ul>
-    {% for item in instructions %}
-    <li>
-        {{ item.distance }} miles {{ item.get_direction_display }}
-        <a href="{% url 'instruction_detail' item.id %}">
-            <button>Details</button>
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+        .compass-card {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .pirate-btn {
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-weight: bold;
+            padding: 12px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .pirate-btn:hover {
+            background: linear-gradient(45deg, #A0522D, #8B4513);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+
+        .instructions-section {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+        }
+
+        .instruction-item {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .instruction-item:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(5px);
+        }
+
+        .nav-pill {
+            background: rgba(139, 69, 19, 0.3);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+        }
+
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #8B4513;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transform: scale(1.02);
+        }
+
+        .gold-text {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="pirate-header text-center p-4 mb-4">
+                    <h1 class="display-4 gold-text mb-3">
+                        <i class="bi bi-compass"></i> Pirate Compass
+                    </h1>
+                    <p class="lead text-white">Navigate the seven seas with precision and style</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Form Section -->
+            <div class="col-lg-6 mb-4">
+                <div class="compass-card p-4 h-100">
+                    <h3 class="gold-text mb-4">
+                        <i class="bi bi-map"></i> Add Navigation Instruction
+                    </h3>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-arrow-up-right-circle"></i> Navigation Direction
+                            </label>
+                            {{ form.direction }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-signpost"></i> Distance (nautical miles)
+                            </label>
+                            {{ form.distance }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white">
+                                <i class="bi bi-journal-text"></i> Route Description
+                            </label>
+                            {{ form.description }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-white">
+                                <i class="bi bi-exclamation-triangle"></i> Risk Level (1-100)
+                            </label>
+                            {{ form.risk_level }}
+                            <div class="form-text text-warning">
+                                Assess the danger level of this route
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn pirate-btn w-100">
+                            <i class="bi bi-plus-circle"></i> Add Instruction
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Instructions Section -->
+            <div class="col-lg-6">
+                <div class="instructions-section p-4 h-100">
+                    <h3 class="gold-text mb-4">
+                        <i class="bi bi-list-ul"></i> Existing Instructions
+                    </h3>
+
+                    {% if instructions %}
+                    <div class="list-group">
+                        {% for item in instructions %}
+                        <div class="list-group-item instruction-item mb-2 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <span class="badge nav-pill me-3">
+                                    {{ item.distance }} mi
+                                </span>
+                                <div>
+                                    <h6 class="mb-1 text-white">{{ item.get_direction_display }}</h6>
+                                    <small class="text-warning">Risk: {{ item.risk_level }}/100</small>
+                                </div>
+                            </div>
+                            <a href="{% url 'instruction_detail' item.id %}" class="btn btn-sm pirate-btn">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-map display-1 text-warning"></i>
+                        <h5 class="text-white mt-3">No instructions yet!</h5>
+                        <p class="text-muted">Add your first navigation instruction to get started.</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Stats Card -->
+                    {% if instructions %}
+                    <div class="mt-4">
+                        <div class="card bg-dark border-warning">
+                            <div class="card-body">
+                                <h6 class="card-title gold-text">
+                                    <i class="bi bi-graph-up"></i> Journey Summary
+                                </h6>
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <h4 class="text-warning">{{ instructions|length }}</h4>
+                                        <small class="text-white">Total Steps</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4 class="text-warning">
+                                            {% widthratio instructions|length 1 1 %}
+                                        </h4>
+                                        <small class="text-white">Active Routes</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

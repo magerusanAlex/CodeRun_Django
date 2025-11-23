@@ -1,11 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Instruction Details</title>
+    <title>Instruction Details - Pirate Compass</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        .container { font-family: sans-serif; max-width: 600px; margin: 0 auto; text-align: center; }
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        /* CSS classes to rotate the arrow based on direction */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .pirate-card {
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .compass-display {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #8B4513;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compass-display::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .arrow-icon {
+            width: 150px;
+            height: 150px;
+            transition: transform 1s ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+        }
+
+        .arrow-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #ffd700;
+            stroke-width: 3;
+        }
+
+        /* Direction rotations */
         .arrow-N { transform: rotate(0deg); }
         .arrow-NE { transform: rotate(45deg); }
         .arrow-E { transform: rotate(90deg); }
@@ -15,58 +75,223 @@
         .arrow-W { transform: rotate(270deg); }
         .arrow-NW { transform: rotate(315deg); }
 
-        .arrow-icon {
-            width: 100px;
-            height: 100px;
-            margin: 20px;
-            transition: transform 0.5s ease; /* Smooth animation */
+        .pirate-btn {
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
+        .pirate-btn:hover {
+            background: linear-gradient(45deg, #A0522D, #8B4513);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+
+        .gold-text {
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .detail-card {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .risk-badge {
+            font-size: 0.8em;
+            padding: 5px 12px;
+            border-radius: 15px;
+        }
+
+        .risk-low { background: #2ecc71; color: #000; }
+        .risk-medium { background: #f39c12; color: #000; }
+        .risk-high { background: #e74c3c; color: #fff; }
+
         .summary-box {
-            background-color: #f0f0f0;
-            border: 2px dashed #333;
-            padding: 15px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(255, 215, 0, 0.2));
+            border: 2px dashed #ffd700;
+            border-radius: 15px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #8B4513;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
     </style>
 </head>
 <body>
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="pirate-card text-center p-4">
+                    <h1 class="display-4 gold-text mb-3">
+                        <i class="bi bi-geo-alt"></i> Instruction #{{ instruction.id }}
+                    </h1>
+                    <p class="lead text-white">Navigation details and route information</p>
+                </div>
+            </div>
+        </div>
 
-<div class="container">
-    <h1>Instruction #{{ instruction.id }}</h1>
+        <div class="row">
+            <!-- Compass Display -->
+            <div class="col-lg-6 mb-4">
+                <div class="compass-display p-5 text-center h-100">
+                    <div class="arrow-icon arrow-{{ instruction.direction }} mx-auto mb-4">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                    </div>
 
-    <div class="arrow-icon arrow-{{ instruction.direction }}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="19" x2="12" y2="5"></line>
-            <polyline points="5 12 12 5 19 12"></polyline>
-        </svg>
+                    <h2 class="gold-text mb-3">
+                        <i class="bi bi-arrow-right"></i> Go {{ instruction.get_direction_display }}
+                    </h2>
+
+                    <h3 class="text-white mb-4">
+                        <i class="bi bi-signpost"></i> {{ instruction.distance }} nautical miles
+                    </h3>
+
+                    <div class="mt-4">
+                        <span class="badge bg-warning text-dark fs-6 p-3">
+                            <i class="bi bi-compass"></i> Active Navigation
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Section -->
+            <div class="col-lg-6 mb-4">
+                <div class="h-100">
+                    <div class="detail-card p-4 mb-4">
+                        <h4 class="gold-text mb-3">
+                            <i class="bi bi-journal-text"></i> Instruction Details
+                        </h4>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white mb-2">
+                                <i class="bi bi-chat-left-text"></i> Description
+                            </label>
+                            <p class="text-white fs-5">{{ instruction.description }}</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-white mb-2">
+                                    <i class="bi bi-exclamation-triangle"></i> Risk Level
+                                </label>
+                                <div class="d-flex align-items-center">
+                                    <h4 class="text-warning me-3">{{ instruction.risk_level }}/100</h4>
+                                    {% if instruction.risk_level <= 33 %}
+                                        <span class="risk-badge risk-low">Low</span>
+                                    {% elif instruction.risk_level <= 66 %}
+                                        <span class="risk-badge risk-medium">Medium</span>
+                                    {% else %}
+                                        <span class="risk-badge risk-high">High</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label text-white mb-2">
+                                    <i class="bi bi-calendar"></i> Added
+                                </label>
+                                <p class="text-white">Recently</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <a href="?summary=true" class="btn pirate-btn w-100 py-3">
+                                <i class="bi bi-graph-up"></i> Show Route Summary
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{% url 'compass' %}" class="btn pirate-btn w-100 py-3">
+                                <i class="bi bi-compass"></i> Back to Compass
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        {% if show_summary %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="summary-box p-4">
+                    <h3 class="gold-text text-center mb-4">
+                        <i class="bi bi-map"></i> Route Analysis
+                    </h3>
+                    <p class="text-white text-center mb-4">From this point to the final destination</p>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="stat-card p-4 text-center">
+                                <i class="bi bi-signpost-split display-4 gold-text mb-3"></i>
+                                <h2 class="gold-text">{{ total_distance }} mi</h2>
+                                <p class="text-white mb-0">Total Distance Remaining</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card p-4 text-center">
+                                <i class="bi bi-activity display-4 gold-text mb-3"></i>
+                                <h2 class="gold-text">{{ average_risk|floatformat:1 }}%</h2>
+                                <p class="text-white mb-0">Average Risk Level</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <div class="progress" style="height: 20px; background: rgba(0,0,0,0.3);">
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                 style="width: {{ average_risk }}%;"
+                                 aria-valuenow="{{ average_risk }}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                {{ average_risk|floatformat:1 }}% Average Risk
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
-    <h2>Go {{ instruction.get_direction_display }}</h2>
-    <h3>Distance: {{ instruction.distance }} nautical miles</h3>
-    <p><strong>Description:</strong> {{ instruction.description }}</p>
-    <p><strong>Risk Level:</strong> {{ instruction.risk_level }}/100</p>
-
-    <hr>
-
-    <a href="?summary=true">
-        <button style="padding: 10px 20px; cursor: pointer;">
-            Show Route Summary
-        </button>
-    </a>
-
-    <br><br>
-    <a href="{% url 'compass' %}">Back to Compass</a>
-
-    {% if show_summary %}
-    <div class="summary-box">
-        <h3>Route Analysis (From here to end)</h3>
-        <p><strong>Total Distance Remaining:</strong> {{ total_distance }} miles</p>
-        <p><strong>Average Risk Level:</strong> {{ average_risk|floatformat:1 }}%</p>
-    </div>
-    {% endif %}
-
-</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add arrow animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const arrow = document.querySelector('.arrow-icon');
+            if (arrow) {
+                setInterval(() => {
+                    arrow.style.transform = arrow.style.transform + ' scale(1.05)';
+                    setTimeout(() => {
+                        arrow.style.transform = arrow.style.transform.replace(' scale(1.05)', '');
+                    }, 300);
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>
