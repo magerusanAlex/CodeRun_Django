@@ -1,0 +1,21 @@
+<h1>Pirate Compass</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Instruction</button>
+</form>
+
+<hr>
+
+<h3>Existing Instructions</h3>
+<ul>
+    {% for item in instructions %}
+    <li>
+        {{ item.distance }} miles {{ item.get_direction_display }}
+        <a href="{% url 'instruction_detail' item.id %}">
+            <button>Details</button>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
