@@ -5,12 +5,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
+        /* PALETTE:
+           #8e4f4f (Rusty Red)
+           #d9a973 (Tan/Sand)
+           #fffee9 (Cream/Off-White)
+           #6f8db9 (Muted Blue)
+           #9d6533 (Dark Brown)
+        */
+
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            /* Deep sea and sand gradient */
+            background: linear-gradient(135deg, #6f8db9, #9d6533, #d9a973);
             background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            animation: gradient 20s ease infinite;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fffee9;
         }
 
         @keyframes gradient {
@@ -19,22 +29,26 @@
             100% { background-position: 0% 50%; }
         }
 
-        .pirate-card {
-            background: rgba(0, 0, 0, 0.9);
-            border: 3px solid #ffd700;
+        /* Main Glass Containers */
+        .pirate-card, .detail-card {
+            background: rgba(157, 101, 51, 0.75); /* Dark Brown Transparent */
+            border: 2px solid #d9a973; /* Tan Border */
             border-radius: 20px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(142, 79, 79, 0.4); /* Rusty Shadow */
             backdrop-filter: blur(10px);
         }
 
+        /* The Compass Circle Area */
         .compass-display {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #8B4513;
-            border-radius: 15px;
+            background: rgba(90, 50, 20, 0.6); /* Darker brown for contrast */
+            border: 3px double #d9a973;
+            border-radius: 20px;
             position: relative;
             overflow: hidden;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
         }
 
+        /* Pulse Animation behind the arrow */
         .compass-display::before {
             content: "";
             position: absolute;
@@ -42,7 +56,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(217, 169, 115, 0.2) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -51,17 +65,18 @@
             50% { transform: scale(1.1); opacity: 0.8; }
         }
 
+        /* The SVG Arrow */
         .arrow-icon {
             width: 150px;
             height: 150px;
-            transition: transform 1s ease-in-out;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
         }
 
         .arrow-icon svg {
             width: 100%;
             height: 100%;
-            stroke: #ffd700;
+            stroke: #fffee9; /* Cream color arrow */
             stroke-width: 3;
         }
 
@@ -75,48 +90,62 @@
         .arrow-W { transform: rotate(270deg); }
         .arrow-NW { transform: rotate(315deg); }
 
+        /* Buttons */
         .pirate-btn {
-            background: linear-gradient(45deg, #8B4513, #A0522D);
-            border: 2px solid #ffd700;
-            color: #ffd700;
+            background: linear-gradient(45deg, #6f8db9, #8e4f4f);
+            border: 1px solid #d9a973;
+            color: #fffee9;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
         .pirate-btn:hover {
-            background: linear-gradient(45deg, #A0522D, #8B4513);
+            background: linear-gradient(45deg, #8e4f4f, #d9a973);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-            color: #ffd700;
+            box-shadow: 0 5px 15px rgba(217, 169, 115, 0.4);
+            color: #fff;
         }
 
-        .gold-text {
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        /* Text Highlighting */
+        .highlight-text {
+            color: #d9a973; /* Tan */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
 
+        .label-text {
+            color: #d9a973;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* Detail Box Specifics */
         .detail-card {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid #ffd700;
-            border-radius: 10px;
-            border-left: 4px solid #ffd700;
+            border-left: 5px solid #8e4f4f; /* Rusty Red Accent */
         }
 
+        /* Risk Badges */
         .risk-badge {
             font-size: 0.8em;
-            padding: 5px 12px;
-            border-radius: 15px;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .risk-low { background: #2ecc71; color: #000; }
-        .risk-medium { background: #f39c12; color: #000; }
-        .risk-high { background: #e74c3c; color: #fff; }
+        .risk-low { background: #6f8db9; color: #fff; } /* Blue for calm seas */
+        .risk-medium { background: #d9a973; color: #000; } /* Tan for caution */
+        .risk-high { background: #8e4f4f; color: #fff; } /* Red for danger */
 
+        /* Summary Box */
         .summary-box {
-            background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(255, 215, 0, 0.2));
-            border: 2px dashed #ffd700;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px dashed #d9a973;
             border-radius: 15px;
             animation: slideIn 0.5s ease-out;
+            margin-top: 2rem;
         }
 
         @keyframes slideIn {
@@ -125,108 +154,112 @@
         }
 
         .stat-card {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #8B4513;
-            border-radius: 10px;
+            background: rgba(157, 101, 51, 0.4);
+            border: 1px solid #8e4f4f;
+            border-radius: 15px;
             transition: transform 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            background: rgba(157, 101, 51, 0.8);
         }
     </style>
 </head>
 <body>
-    <div class="container py-4">
-        <!-- Header -->
+    <div class="container py-5">
         <div class="row mb-4">
             <div class="col-12">
                 <div class="pirate-card text-center p-4">
-                    <h1 class="display-4 gold-text mb-3">
-                        <i class="bi bi-geo-alt"></i> Instruction #{{ instruction.id }}
+                    <h1 class="display-4 highlight-text mb-2">
+                        <i class="bi bi-geo-alt-fill"></i> Point #{{ instruction.id }}
                     </h1>
-                    <p class="lead text-white">Navigation details and route information</p>
+                    <p class="lead" style="color: #fffee9; opacity: 0.8;">Waypoint Details</p>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <!-- Compass Display -->
-            <div class="col-lg-6 mb-4">
-                <div class="compass-display p-5 text-center h-100">
-                    <div class="arrow-icon arrow-{{ instruction.direction }} mx-auto mb-4">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="compass-display p-5 text-center h-100 d-flex flex-column justify-content-center align-items-center">
+
+                    <div class="arrow-icon arrow-{{ instruction.direction }} mb-4">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="19" x2="12" y2="5"></line>
                             <polyline points="5 12 12 5 19 12"></polyline>
                         </svg>
                     </div>
 
-                    <h2 class="gold-text mb-3">
-                        <i class="bi bi-arrow-right"></i> Go {{ instruction.get_direction_display }}
+                    <h2 class="highlight-text mb-2">
+                        <i class="bi bi-cursor"></i> Go {{ instruction.get_direction_display }}
                     </h2>
 
                     <h3 class="text-white mb-4">
-                        <i class="bi bi-signpost"></i> {{ instruction.distance }} nautical miles
+                        <i class="bi bi-rulers"></i> {{ instruction.distance }} nautical miles
                     </h3>
 
-                    <div class="mt-4">
-                        <span class="badge bg-warning text-dark fs-6 p-3">
-                            <i class="bi bi-compass"></i> Active Navigation
+                    <div class="mt-2">
+                        <span class="badge" style="background-color: #d9a973; color: #540863; font-size: 1rem;">
+                            <i class="bi bi-compass"></i> Coordinates Locked
                         </span>
                     </div>
                 </div>
             </div>
 
-            <!-- Details Section -->
-            <div class="col-lg-6 mb-4">
-                <div class="h-100">
-                    <div class="detail-card p-4 mb-4">
-                        <h4 class="gold-text mb-3">
-                            <i class="bi bi-journal-text"></i> Instruction Details
+            <div class="col-lg-6">
+                <div class="h-100 d-flex flex-column">
+                    <div class="detail-card p-4 mb-4 flex-grow-1">
+                        <h4 class="highlight-text mb-4 border-bottom border-secondary pb-2">
+                            <i class="bi bi-journal-text"></i> Captain's Log
                         </h4>
 
-                        <div class="mb-3">
-                            <label class="form-label text-white mb-2">
-                                <i class="bi bi-chat-left-text"></i> Description
+                        <div class="mb-4">
+                            <label class="label-text">
+                                <i class="bi bi-chat-quote-fill"></i> Description
                             </label>
-                            <p class="text-white fs-5">{{ instruction.description }}</p>
+                            <p class="fs-5" style="color: #fffee9;">"{{ instruction.description }}"</p>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-white mb-2">
-                                    <i class="bi bi-exclamation-triangle"></i> Risk Level
+                                <label class="label-text">
+                                    <i class="bi bi-exclamation-triangle-fill"></i> Risk Level
                                 </label>
-                                <div class="d-flex align-items-center">
-                                    <h4 class="text-warning me-3">{{ instruction.risk_level }}/100</h4>
+                                <div class="d-flex align-items-center mt-2">
+                                    <h2 class="me-3 mb-0" style="color: #d9a973;">{{ instruction.risk_level }}%</h2>
                                     {% if instruction.risk_level <= 33 %}
-                                        <span class="risk-badge risk-low">Low</span>
+                                        <span class="risk-badge risk-low">Low Risk</span>
                                     {% elif instruction.risk_level <= 66 %}
-                                        <span class="risk-badge risk-medium">Medium</span>
+                                        <span class="risk-badge risk-medium">Caution</span>
                                     {% else %}
-                                        <span class="risk-badge risk-high">High</span>
+                                        <span class="risk-badge risk-high">Danger</span>
                                     {% endif %}
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-white mb-2">
-                                    <i class="bi bi-calendar"></i> Added
+                                <label class="label-text">
+                                    <i class="bi bi-link-45deg"></i> Sequence
                                 </label>
-                                <p class="text-white">Recently</p>
+                                <p class="text-white mt-2">
+                                    {% if instruction.previous_instruction %}
+                                        Linked to ID #{{ instruction.previous_instruction.id }}
+                                    {% else %}
+                                        Starting Point
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="row g-3">
+                    <div class="row g-2">
                         <div class="col-md-6">
                             <a href="?summary=true" class="btn pirate-btn w-100 py-3">
-                                <i class="bi bi-graph-up"></i> Show Route Summary
+                                <i class="bi bi-graph-up-arrow"></i> Calculate Route
                             </a>
                         </div>
                         <div class="col-md-6">
                             <a href="{% url 'compass' %}" class="btn pirate-btn w-100 py-3">
-                                <i class="bi bi-compass"></i> Back to Compass
+                                <i class="bi bi-arrow-left-circle"></i> Back to Map
                             </a>
                         </div>
                     </div>
@@ -234,41 +267,41 @@
             </div>
         </div>
 
-        <!-- Summary Section -->
         {% if show_summary %}
-        <div class="row mt-4">
+        <div class="row">
             <div class="col-12">
                 <div class="summary-box p-4">
-                    <h3 class="gold-text text-center mb-4">
-                        <i class="bi bi-map"></i> Route Analysis
+                    <h3 class="highlight-text text-center mb-2">
+                        <i class="bi bi-map-fill"></i> Route Analysis
                     </h3>
-                    <p class="text-white text-center mb-4">From this point to the final destination</p>
+                    <p class="text-center mb-4" style="color: #d9a973;">Projected path from here to the treasure</p>
 
-                    <div class="row g-4">
-                        <div class="col-md-6">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-md-5">
                             <div class="stat-card p-4 text-center">
-                                <i class="bi bi-signpost-split display-4 gold-text mb-3"></i>
-                                <h2 class="gold-text">{{ total_distance }} mi</h2>
-                                <p class="text-white mb-0">Total Distance Remaining</p>
+                                <i class="bi bi-signpost-split display-4 mb-3" style="color: #d9a973;"></i>
+                                <h2 class="text-white">{{ total_distance }} mi</h2>
+                                <p class="mb-0 label-text">Total Distance</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="stat-card p-4 text-center">
-                                <i class="bi bi-activity display-4 gold-text mb-3"></i>
-                                <h2 class="gold-text">{{ average_risk|floatformat:1 }}%</h2>
-                                <p class="text-white mb-0">Average Risk Level</p>
+                                <i class="bi bi-activity display-4 mb-3" style="color: #8e4f4f;"></i>
+                                <h2 class="text-white">{{ average_risk|floatformat:1 }}%</h2>
+                                <p class="mb-0 label-text">Average Risk</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="text-center mt-4">
-                        <div class="progress" style="height: 20px; background: rgba(0,0,0,0.3);">
-                            <div class="progress-bar bg-warning" role="progressbar"
-                                 style="width: {{ average_risk }}%;"
+                    <div class="text-center mt-4 px-lg-5">
+                        <label class="label-text mb-2">Route Danger Meter</label>
+                        <div class="progress" style="height: 25px; background: rgba(0,0,0,0.5); border: 1px solid #d9a973;">
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: {{ average_risk }}%; background-color: #8e4f4f;"
                                  aria-valuenow="{{ average_risk }}"
                                  aria-valuemin="0"
                                  aria-valuemax="100">
-                                {{ average_risk|floatformat:1 }}% Average Risk
+                                {{ average_risk|floatformat:0 }}%
                             </div>
                         </div>
                     </div>
@@ -280,15 +313,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Add arrow animation
+        // Subtle breathing animation for the arrow
         document.addEventListener('DOMContentLoaded', function() {
             const arrow = document.querySelector('.arrow-icon');
             if (arrow) {
+                // CSS transition handles the smooth rotation
+                // This JS adds a small "breath" effect
                 setInterval(() => {
-                    arrow.style.transform = arrow.style.transform + ' scale(1.05)';
+                    arrow.style.filter = "drop-shadow(0 0 15px rgba(217, 169, 115, 0.6))";
                     setTimeout(() => {
-                        arrow.style.transform = arrow.style.transform.replace(' scale(1.05)', '');
-                    }, 300);
+                        arrow.style.filter = "drop-shadow(0 5px 5px rgba(0,0,0,0.5))";
+                    }, 1000);
                 }, 2000);
             }
         });

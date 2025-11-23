@@ -5,12 +5,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
+        /* NEW PALETTE:
+           #8e4f4f (Rusty Red)
+           #d9a973 (Tan/Sand)
+           #fffee9 (Cream/Off-White)
+           #6f8db9 (Muted Blue)
+           #9d6533 (Dark Brown)
+        */
+
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            /* Deep sea and sand gradient */
+            background: linear-gradient(135deg, #6f8db9, #9d6533, #d9a973);
             background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            animation: gradient 20s ease infinite;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fffee9; /* Cream text */
         }
 
         @keyframes gradient {
@@ -19,213 +29,224 @@
             100% { background-position: 0% 50%; }
         }
 
-        .pirate-header {
-            background: rgba(0, 0, 0, 0.8);
-            border: 3px solid #ffd700;
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        /* Rugged Glassmorphism Containers */
+        .pirate-header, .compass-card, .instructions-section {
+            /* Dark brown with opacity */
+            background: rgba(157, 101, 51, 0.75);
             backdrop-filter: blur(10px);
+            border: 3px solid #d9a973; /* Tan border */
+            border-radius: 20px;
+            /* Rusty shadow */
+            box-shadow: 0 10px 30px rgba(142, 79, 79, 0.5);
         }
 
-        .compass-card {
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #8B4513;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+        .pirate-header {
+            margin-bottom: 2rem;
+            border-bottom: 4px solid #8e4f4f;
         }
 
-        .pirate-btn {
-            background: linear-gradient(45deg, #8B4513, #A0522D);
-            border: 2px solid #ffd700;
-            color: #ffd700;
+        /* Text Styles */
+        .highlight-text {
+            color: #fffee9;
+            text-shadow: 2px 2px 4px #9d6533;
             font-weight: bold;
-            padding: 12px 30px;
+        }
+
+        label {
+            color: #d9a973; /* Tan labels */
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- NEW DARKER, TRANSPARENT FORM STYLES --- */
+        .custom-input {
+            /* Dark brown background with 60% opacity */
+            background-color: rgba(157, 101, 51, 0.6) !important;
+            border: 2px solid #8e4f4f !important; /* Rusty Border */
+            color: #fffee9 !important; /* Cream text */
+            border-radius: 12px !important;
+            padding: 10px 15px;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
+        .custom-input:hover {
+            background-color: rgba(157, 101, 51, 0.8) !important; /* Less transparent on hover */
+            border-color: #d9a973 !important; /* Tan border on hover */
+        }
+
+        .custom-input:focus {
+            box-shadow: 0 0 15px #d9a973 !important; /* Tan Glow */
+            border-color: #fffee9 !important;
+            background-color: rgba(157, 101, 51, 0.9) !important;
+            outline: none;
+        }
+
+        /* Style the placeholder text to be lighter */
+        ::placeholder {
+            color: #fffee9 !important;
+            opacity: 0.5;
+        }
+
+        /* Buttons (Blue to Rust Gradient) */
+        .pirate-btn {
+            background: linear-gradient(45deg, #6f8db9, #8e4f4f);
+            border: 1px solid #d9a973;
+            color: #fffee9;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            margin-top: 10px;
+        }
+
         .pirate-btn:hover {
-            background: linear-gradient(45deg, #A0522D, #8B4513);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-            color: #ffd700;
+            background: linear-gradient(45deg, #8e4f4f, #d9a973);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(217, 169, 115, 0.4);
         }
 
-        .instructions-section {
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #8B4513;
-            border-radius: 15px;
-        }
-
+        /* List Items */
         .instruction-item {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid #ffd700;
-            border-radius: 10px;
+            /* Darker brown/rust tint */
+            background: rgba(142, 79, 79, 0.3);
+            border: 1px solid #9d6533;
+            color: #fffee9;
             transition: all 0.3s ease;
         }
 
         .instruction-item:hover {
-            background: rgba(255, 215, 0, 0.2);
-            transform: translateX(5px);
-        }
-
-        .nav-pill {
-            background: rgba(139, 69, 19, 0.3);
-            border: 1px solid #ffd700;
-            color: #ffd700;
-        }
-
-        .form-control, .form-select {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #8B4513;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus, .form-select:focus {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: #ffd700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            background: rgba(217, 169, 115, 0.4); /* Tan tint on hover */
+            border-color: #fffee9;
             transform: scale(1.02);
+            cursor: pointer;
         }
 
-        .gold-text {
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        .badge-pill {
+            background-color: #8e4f4f; /* Rusty Red badge */
+            color: #fffee9;
+            border: 1px solid #d9a973;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-weight: bold;
         }
 
-        .divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            margin: 2rem 0;
+        /* Icons within labels */
+        .bi {
+            color: #6f8db9; /* Muted blue icons */
         }
     </style>
 </head>
 <body>
-    <div class="container py-4">
-        <!-- Header -->
+    <div class="container py-5">
+
         <div class="row mb-4">
             <div class="col-12">
-                <div class="pirate-header text-center p-4 mb-4">
-                    <h1 class="display-4 gold-text mb-3">
-                        <i class="bi bi-compass"></i> Pirate Compass
+                <div class="pirate-header text-center p-5">
+                    <h1 class="display-3 highlight-text mb-2">
+                        <i class="bi bi-compass-fill" style="color: #d9a973;"></i> Pirate's Compass
                     </h1>
-                    <p class="lead text-white">Navigate the seven seas with precision and style</p>
+                    <p class="lead" style="color: #d9a973;">Chart your course to fortune and glory.</p>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <!-- Form Section -->
-            <div class="col-lg-6 mb-4">
+        <div class="row g-4">
+            <div class="col-lg-5">
                 <div class="compass-card p-4 h-100">
-                    <h3 class="gold-text mb-4">
-                        <i class="bi bi-map"></i> Add Navigation Instruction
+                    <h3 class="highlight-text mb-4 text-center">
+                        <i class="bi bi-quill-pen"></i> New Coordinates
                     </h3>
 
                     <form method="post">
                         {% csrf_token %}
 
                         <div class="mb-3">
-                            <label class="form-label text-white">
-                                <i class="bi bi-arrow-up-right-circle"></i> Navigation Direction
-                            </label>
+                            <label><i class="bi bi-arrow-up-right-circle"></i> {{ form.direction.label }}</label>
                             {{ form.direction }}
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-white">
-                                <i class="bi bi-signpost"></i> Distance (nautical miles)
-                            </label>
+                            <label><i class="bi bi-rulers"></i> {{ form.distance.label }}</label>
                             {{ form.distance }}
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-white">
-                                <i class="bi bi-journal-text"></i> Route Description
-                            </label>
+                            <label><i class="bi bi-map"></i> {{ form.description.label }}</label>
                             {{ form.description }}
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label text-white">
-                                <i class="bi bi-exclamation-triangle"></i> Risk Level (1-100)
-                            </label>
-                            {{ form.risk_level }}
-                            <div class="form-text text-warning">
-                                Assess the danger level of this route
+                         <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label><i class="bi bi-exclamation-triangle"></i> Risk %</label>
+                                {{ form.risk_level }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label><i class="bi bi-link-45deg"></i> Previous</label>
+                                {{ form.previous_instruction }}
                             </div>
                         </div>
 
+                        {% if form.errors %}
+                            <div class="alert alert-danger" style="background: rgba(142, 79, 79, 0.7); border: 1px solid #d9a973; color: #fffee9;">
+                                Arrr! Check yer entries, matey. Errors detected.
+                            </div>
+                        {% endif %}
+
                         <button type="submit" class="btn pirate-btn w-100">
-                            <i class="bi bi-plus-circle"></i> Add Instruction
+                            Mark the Map <i class="bi bi-x-diamond-fill"></i>
                         </button>
                     </form>
                 </div>
             </div>
 
-            <!-- Instructions Section -->
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="instructions-section p-4 h-100">
-                    <h3 class="gold-text mb-4">
-                        <i class="bi bi-list-ul"></i> Existing Instructions
+                    <h3 class="highlight-text mb-4 text-center">
+                        <i class="bi bi-journal-bookmark-fill"></i> Current Route
                     </h3>
 
                     {% if instructions %}
                     <div class="list-group">
                         {% for item in instructions %}
-                        <div class="list-group-item instruction-item mb-2 d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <span class="badge nav-pill me-3">
-                                    {{ item.distance }} mi
-                                </span>
-                                <div>
-                                    <h6 class="mb-1 text-white">{{ item.get_direction_display }}</h6>
-                                    <small class="text-warning">Risk: {{ item.risk_level }}/100</small>
+                        <a href="{% url 'instruction_detail' item.id %}" class="text-decoration-none">
+                            <div class="list-group-item instruction-item mb-3 rounded d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <div class="badge-pill me-3 shadow">
+                                        <i class="bi bi-cursor-fill" style="color: #fffee9;"></i> {{ item.distance }} mi
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">{{ item.get_direction_display }}</h5>
+                                        <small style="color: #d9a973;">
+                                            Risk: {{ item.risk_level }}%
+                                        </small>
+                                    </div>
                                 </div>
+                                <span class="btn btn-sm pirate-btn" style="padding: 5px 15px; font-size: 0.8rem; background: linear-gradient(45deg, #9d6533, #8e4f4f);">
+                                    View
+                                </span>
                             </div>
-                            <a href="{% url 'instruction_detail' item.id %}" class="btn btn-sm pirate-btn">
-                                <i class="bi bi-eye"></i> View
-                            </a>
-                        </div>
+                        </a>
                         {% endfor %}
                     </div>
                     {% else %}
-                    <div class="text-center py-5">
-                        <i class="bi bi-map display-1 text-warning"></i>
-                        <h5 class="text-white mt-3">No instructions yet!</h5>
-                        <p class="text-muted">Add your first navigation instruction to get started.</p>
-                    </div>
-                    {% endif %}
-
-                    <!-- Stats Card -->
-                    {% if instructions %}
-                    <div class="mt-4">
-                        <div class="card bg-dark border-warning">
-                            <div class="card-body">
-                                <h6 class="card-title gold-text">
-                                    <i class="bi bi-graph-up"></i> Journey Summary
-                                </h6>
-                                <div class="row text-center">
-                                    <div class="col-6">
-                                        <h4 class="text-warning">{{ instructions|length }}</h4>
-                                        <small class="text-white">Total Steps</small>
-                                    </div>
-                                    <div class="col-6">
-                                        <h4 class="text-warning">
-                                            {% widthratio instructions|length 1 1 %}
-                                        </h4>
-                                        <small class="text-white">Active Routes</small>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="text-center py-5">
+                            <i class="bi bi-map-fill display-1" style="color: #8e4f4f; opacity: 0.7;"></i>
+                            <h5 class="mt-3">The map is blank!</h5>
+                            <p style="color: #d9a973;">Add your first instruction to begin the hunt.</p>
                         </div>
-                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
