@@ -3,9 +3,7 @@ from .forms import InstructionForm
 from django.shortcuts import render, get_object_or_404
 from .models import Instruction
 
-# View for '/compass'
 def compass_view(request):
-    # Handle the Form submission (POST)
     if request.method == 'POST':
         form = InstructionForm(request.POST)
         if form.is_valid():
@@ -43,7 +41,7 @@ def instruction_detail_view(request, instruction_id):
             if hasattr(current_node, 'next_instruction'):
                 current_node = current_node.next_instruction
             else:
-                current_node = None  # Stop the loop
+                current_node = None
 
         if count > 0:
             average_risk = total_risk_sum / count

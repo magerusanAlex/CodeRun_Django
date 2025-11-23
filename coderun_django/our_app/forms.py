@@ -7,7 +7,6 @@ class InstructionForm(forms.ModelForm):
         model = Instruction
         fields = ['direction', 'distance', 'description', 'risk_level', 'previous_instruction']
 
-        # This dictionary controls how the HTML inputs are rendered
         widgets = {
             'direction': forms.Select(attrs={
                 'class': 'form-select custom-input',
@@ -34,5 +33,4 @@ class InstructionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(InstructionForm, self).__init__(*args, **kwargs)
-        # Custom label styling (optional, but looks nice)
         self.fields['previous_instruction'].empty_label = "--- Start of Route (No Previous) ---"
